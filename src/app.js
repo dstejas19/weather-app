@@ -50,14 +50,14 @@ app.get('/weather', (req, res) => {
                 error
             })
         }
-        forecast(latitude, longitude, (error, {description, curTemp, feelsLike} = {}) => {
+        forecast(latitude, longitude, (error, {description, curTemp, feelsLike, humidity} = {}) => {
             if(error) {
                 return res.send({
                     error
                 })
             }
             return res.send({
-                forecast: description,
+                forecast: `${description}. The current temperature is ${curTemp} degrees, it feels like ${feelsLike} degrees outside and the humidity is ${humidity}%`,
                 location,
                 address: req.query.address
             })
@@ -94,5 +94,5 @@ app.get('*', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log('Server is up on port ${port}')
+    console.log(`Server is up on port ${port}`)
 })
